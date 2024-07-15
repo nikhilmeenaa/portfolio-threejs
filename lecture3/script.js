@@ -5,7 +5,9 @@ const geometry = new THREE.BoxGeometry(1, 1.4, 1);
 const material = new THREE.MeshBasicMaterial({ color: "red" });
 
 const mesh = new THREE.Mesh(geometry, material);
+
 scene.add(mesh);
+
 const sizes = {
   height: 500,
   width: 700,
