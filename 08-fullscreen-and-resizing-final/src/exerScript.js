@@ -11,12 +11,18 @@ const boxMesh2 = new THREE.Mesh(
   new THREE.RingGeometry(2, 3, 1, 1, 1),
   new THREE.MeshBasicMaterial({ color: "#a346f0" })
 );
+const sphereMesh = new THREE.Mesh(
+  new THREE.SphereGeometry(0.5),
+  new THREE.MeshBasicMaterial({ color: "#a346f0" })
+);
 
+scene.add(sphereMesh);
 scene.add(boxMesh);
 scene.add(boxMesh1);
-scene.add(boxMesh2);
+// scene.add(boxMesh2);
 boxMesh1.position.x = 2;
 boxMesh2.position.y = 1;
+sphereMesh.position.y = 1;
 const sizes = { height: window.innerHeight, width: window.innerWidth };
 
 window.addEventListener("resize", () => {
