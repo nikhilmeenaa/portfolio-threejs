@@ -2,27 +2,29 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const scene = new THREE.Scene();
-const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: "#f2d480" });
 
-const boxMesh = new THREE.Mesh(boxGeometry, material);
-const boxMesh1 = new THREE.Mesh(boxGeometry, material);
-const boxMesh2 = new THREE.Mesh(
-  new THREE.RingGeometry(2, 3, 1, 1, 1),
-  new THREE.MeshBasicMaterial({ color: "#a346f0" })
-);
-const sphereMesh = new THREE.Mesh(
-  new THREE.SphereGeometry(0.5),
-  new THREE.MeshBasicMaterial({ color: "#a346f0" })
-);
+// const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 
-scene.add(sphereMesh);
+const traingleCount = 1000;
+const positions = new Float32Array(traingleCount * 3 * 3);
+
+for (let i = 0; i < traingleCount * 3 * 3; i++) {
+  positions[i] = Math.random() - 0.5;
+}
+
+const positionsAttribute = new THREE.BufferAttribute(positions, 3);
+
+const geometry = new THREE.BufferGeometry();
+geometry.setAttribute("position", positionsAttribute);
+
+const material = new THREE.MeshBasicMaterial({
+  color: "#f2d480",
+  wireframe: true,
+});
+
+const boxMesh = new THREE.Mesh(geometry, material);
+
 scene.add(boxMesh);
-scene.add(boxMesh1);
-// scene.add(boxMesh2);
-boxMesh1.position.x = 2;
-boxMesh2.position.y = 1;
-sphereMesh.position.y = 1;
 const sizes = { height: window.innerHeight, width: window.innerWidth };
 
 window.addEventListener("resize", () => {
@@ -70,13 +72,13 @@ const orbitControl = new OrbitControls(camera, canvas);
 orbitControl.enableDamping = true;
 
 camera.position.z = 5;
-camera.lookAt(boxMesh2.position);
+// camera.lookAt(boxMesh2.position);
 
 renderer.render(scene, camera);
 
 const tick = () => {
   // Update controls
-  camera.lookAt(boxMesh2.position);
+  // camera.lookAt(boxMesh2.position);
   orbitControl.update();
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
